@@ -3,7 +3,7 @@
     "description": "A lightweight IPFS interaction library for PHP",
     "type": "library",
     "require": {
-        "php": ">= 8.2",
+        "php": ">= 8.3",
         "symfony/http-client": "^7.2"
     },
     "require-dev": {
