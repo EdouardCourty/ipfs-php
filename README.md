@@ -29,7 +29,7 @@ $fileContent = file_get_contents('file.txt');
 $file = $client->add($fileContent);
 
 echo 'File uploaded: ' . $file->hash;
-// QmWGeRAEgtsHW3ec7U4qW2CyVy7eA2mFRVbk1nb24jFyks
+// File uploaded: QmWGeRAEgtsHW3ec7U4qW2CyVy7eA2mFRVbk1nb24jFyks
 // ...
 
 // Get the file content
@@ -37,11 +37,12 @@ $fileContent = $client->cat($file->hash);
 // ...
 
 // Downloads the complete file
-$fileContent = $client->get($file->hash);
+$file = $client->get($file->hash);
 // ...
 
 // Download the file as a tar archive (compression can be specified with the compression parameters)
 $archive = $client->get($file->hash, archive: true);
+file_put_contents('archive.tar', $archive);
 // ...
 ```
 
