@@ -16,4 +16,4 @@ phpstan:
 	$(PHP) $(PHPSTAN) analyse
 
 phpcs:
-	$(PHP) $(PHPCSFIXER) fix . --config .php-cs-fixer.php --allow-risky=yes
+	$(PHP) $(PHPCSFIXER) fix . --config .php-cs-fixer.php
