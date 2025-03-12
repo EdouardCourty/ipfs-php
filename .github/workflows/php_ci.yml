@@ -1,0 +1,38 @@
+name: PHP CI
+
+on:
+  push:
+    branches: [ 'main' ]
+  pull_request:
+    branches: [ '*' ]
+
+jobs:
+  validate:
+    name: Validate codebase
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.2
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Validate composer.json
+        run: composer validate --strict
+
+      - name: Audit dependencies
+        run: composer audit --no-dev
+
+      - name: Install dependencies
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run PHP CS Fixer
+        run: php vendor/bin/php-cs-fixer check --config=.php-cs-fixer.php
+
+      - name: Run PHPStan
+        run: php vendor/bin/phpstan
+
+      - name: Run PHPUnit
+        run: php vendor/bin/phpunit tests
