@@ -8,8 +8,7 @@ use Ipfs\Client\IPFSClient;
 $client = new IPFSClient(host: 'localhost', port: 5001);
 
 // Add a file to IPFS
-$fileContent = file_get_contents(__DIR__ . '/sample_file.txt');
-$file = $client->add($fileContent);
+$file = $client->add('Fake file content');
 
 echo '-- File added to IPFS --' . PHP_EOL;
 echo 'File hash: ' . $file->hash . PHP_EOL;
