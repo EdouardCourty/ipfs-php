@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Ipfs\Model;
 
-class Version
+readonly class Version
 {
     public function __construct(
         public string $commit,

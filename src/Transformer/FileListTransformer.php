@@ -9,7 +9,7 @@ use Ipfs\Model\ListFileEntry;
 class FileListTransformer extends AbstractTransformer
 {
     public function __construct(
-        private FileLinkTransformer $fileLinkTransformer,
+        private readonly FileLinkTransformer $fileLinkTransformer,
     ) {
     }
 
@@ -23,7 +23,7 @@ class FileListTransformer extends AbstractTransformer
         return array_map(function (array $item) {
             $this->assertParameters($item, ['Hash', 'Links']);
 
-            return new ListFileEntry(hash: $item['Hash'], links: $this->fileLinkTransformer->transformList($item['Links']));
+            return new ListFileEntry(hash: (string) $item['Hash'], links: $this->fileLinkTransformer->transformList($item['Links']));
         }, $data);
     }
 }

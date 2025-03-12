@@ -6,6 +6,9 @@ namespace Ipfs\Transformer;
 
 use Ipfs\Model\FileLink;
 
+/**
+ * @method FileLink[] transformList(array $data)
+ */
 class FileLinkTransformer extends AbstractTransformer
 {
     public function transform(array $input): FileLink

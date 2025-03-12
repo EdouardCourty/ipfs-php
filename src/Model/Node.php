@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Ipfs\Model;
 
-class Node
+readonly class Node
 {
     public function __construct(
         public string $id,

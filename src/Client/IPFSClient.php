@@ -17,11 +17,11 @@ use Ipfs\Transformer\VersionTransformer;
 
 class IPFSClient
 {
-    public const DEFAULT_PORT = 5001;
-    public const DEFAULT_HOST = 'localhost';
-    public const DEFAULT_PROTOCOL = 'http';
+    public const int DEFAULT_PORT = 5001;
+    public const string DEFAULT_HOST = 'localhost';
+    public const string DEFAULT_PROTOCOL = 'http';
 
-    public const DEFAULT_TIMEOUT = 5;
+    public const int DEFAULT_TIMEOUT = 5;
 
     private ScopedHttpClient $httpClient;
 

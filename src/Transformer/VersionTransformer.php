@@ -13,11 +13,11 @@ class VersionTransformer extends AbstractTransformer
         $this->assertParameters($input, ['Version', 'Commit', 'Repo', 'System', 'Golang']);
 
         return new Version(
-            commit: $input['Commit'],
-            golang: $input['Golang'],
-            repo: $input['Repo'],
-            system: $input['System'],
-            version: $input['Version'],
+            commit: (string) $input['Commit'],
+            golang: (string) $input['Golang'],
+            repo: (string) $input['Repo'],
+            system: (string) $input['System'],
+            version: (string) $input['Version'],
         );
     }
 }

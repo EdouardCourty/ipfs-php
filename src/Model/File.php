@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Ipfs\Model;
 
-class File
+readonly class File
 {
     public function __construct(
         public string $name,

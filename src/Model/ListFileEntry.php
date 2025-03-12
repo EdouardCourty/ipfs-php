@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Ipfs\Model;
 
-class ListFileEntry
+readonly class ListFileEntry
 {
     public function __construct(
         public string $hash,
