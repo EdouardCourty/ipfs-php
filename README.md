@@ -1,0 +1,50 @@
+# IPFS-PHP
+
+IPFS-PHP provides a simple way to interact with an IPFS Node using PHP.
+
+## Installation
+
+```shell
+composer require ecourty/ipfs-php
+```
+
+## Usage
+
+The following example shows how to add a file to IPFS and retrieve its content later.  
+
+```php
+<?php
+
+use Ipfs\Client\IPFSClient;
+
+// Three different ways to instantiate the client
+$client = new IPFSClient(url: 'http://localhost:5001');
+
+// If nothing is passed, the default values are used (localhost and 5001)
+// $client = new IPFSClient();
+// $client = new IPFSClient(host: 'localhost', port: 5001);
+
+// Add a file
+$fileContent = file_get_contents('file.txt');
+$file = $client->add($fileContent);
+
+echo 'File uploaded: ' . $file->hash;
+// QmWGeRAEgtsHW3ec7U4qW2CyVy7eA2mFRVbk1nb24jFyks
+// ...
+
+// Get the file content
+$fileContent = $client->cat($file->hash);
+// ...
+
+// Downloads the complete file
+$fileContent = $client->get($file->hash);
+// ...
+
+// Download the file as a tar archive (compression can be specified with the compression parameters)
+$archive = $client->get($file->hash, archive: true);
+// ...
+```
+
+More code examples can be found under the [examples](./examples) directory.
+
+&copy; Edouard Courty 2025
