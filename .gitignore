@@ -1,0 +1,5 @@
+.idea
+vendor
+
+examples/archive.tar
+test.php
