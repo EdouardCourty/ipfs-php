@@ -3,3 +3,5 @@ vendor
 
 examples/archive.tar
 test.php
+
+composer.lock
