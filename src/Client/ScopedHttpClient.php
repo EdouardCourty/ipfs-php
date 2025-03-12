@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Ipfs\Client;
+namespace IPFS\Client;
 
-use Ipfs\Exception\IPFSTransportException;
-use Ipfs\Exception\JsonException;
+use IPFS\Exception\IPFSTransportException;
+use IPFS\Exception\JsonException;
 use Symfony\Component\HttpClient\HttpClient;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 

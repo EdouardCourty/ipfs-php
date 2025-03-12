@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Ipfs\Tests\Transformer;
+namespace IPFS\Tests\Transformer;
 
-use Ipfs\Transformer\VersionTransformer;
+use IPFS\Transformer\VersionTransformer;
 use PHPUnit\Framework\TestCase;
 
 /**

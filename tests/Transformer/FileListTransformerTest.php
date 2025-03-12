@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Ipfs\Tests\Transformer;
+namespace IPFS\Tests\Transformer;
 
-use Ipfs\Transformer\FileLinkTransformer;
-use Ipfs\Transformer\FileListTransformer;
+use IPFS\Transformer\FileLinkTransformer;
+use IPFS\Transformer\FileListTransformer;
 use PHPUnit\Framework\TestCase;
 
 /**

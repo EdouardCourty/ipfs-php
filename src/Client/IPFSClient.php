@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Ipfs\Client;
+namespace IPFS\Client;
 
-use Ipfs\Model\File;
-use Ipfs\Model\Node;
-use Ipfs\Model\Ping;
-use Ipfs\Model\Version;
-use Ipfs\Transformer\FileLinkTransformer;
-use Ipfs\Transformer\FileListTransformer;
-use Ipfs\Transformer\FileTransformer;
-use Ipfs\Transformer\NodeTransformer;
-use Ipfs\Transformer\PingTransformer;
-use Ipfs\Transformer\VersionTransformer;
+use IPFS\Model\File;
+use IPFS\Model\Node;
+use IPFS\Model\Ping;
+use IPFS\Model\Version;
+use IPFS\Transformer\FileLinkTransformer;
+use IPFS\Transformer\FileListTransformer;
+use IPFS\Transformer\FileTransformer;
+use IPFS\Transformer\NodeTransformer;
+use IPFS\Transformer\PingTransformer;
+use IPFS\Transformer\VersionTransformer;
 
 class IPFSClient
 {

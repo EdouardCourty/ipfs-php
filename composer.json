@@ -15,12 +15,12 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "Ipfs\\": "src/"
+            "IPFS\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Ipfs\\Tests\\": "tests/"
+            "IPFS\\Tests\\": "tests/"
         }
     },
     "authors": [

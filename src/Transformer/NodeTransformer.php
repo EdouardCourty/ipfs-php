@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Ipfs\Transformer;
+namespace IPFS\Transformer;
 
-use Ipfs\Model\Node;
+use IPFS\Model\Node;
 
 class NodeTransformer extends AbstractTransformer
 {

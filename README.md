@@ -17,7 +17,7 @@ The following example shows how to add a file to IPFS and retrieve its content l
 ```php
 <?php
 
-use Ipfs\Client\IPFSClient;
+use IPFS\Client\IPFSClient;
 
 // Three different ways to instantiate the client
 $client = new IPFSClient(url: 'http://localhost:5001');

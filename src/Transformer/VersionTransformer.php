@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Ipfs\Transformer;
+namespace IPFS\Transformer;
 
-use Ipfs\Model\Version;
+use IPFS\Model\Version;
 
 class VersionTransformer extends AbstractTransformer
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ipfs\Exception;
+namespace IPFS\Exception;
 
 class IPFSTransportException extends \Exception
 {

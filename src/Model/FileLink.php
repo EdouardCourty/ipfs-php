@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Ipfs\Model;
+namespace IPFS\Model;
 
 readonly class FileLink
 {

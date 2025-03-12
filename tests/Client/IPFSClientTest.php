@@ -2,10 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Ipfs\Tests\Client;
+namespace IPFS\Tests\Client;
 
-use Ipfs\Client\IPFSClient;
-use Ipfs\Client\ScopedHttpClient;
+use IPFS\Client\IPFSClient;
+use IPFS\Client\ScopedHttpClient;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 

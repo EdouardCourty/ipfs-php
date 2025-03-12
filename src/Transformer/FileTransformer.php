@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
-namespace Ipfs\Transformer;
+namespace IPFS\Transformer;
 
-use Ipfs\Model\File;
+use IPFS\Model\File;
 
 class FileTransformer extends AbstractTransformer
 {

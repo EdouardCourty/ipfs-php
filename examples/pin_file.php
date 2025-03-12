@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Ipfs\Client\IPFSClient;
+use IPFS\Client\IPFSClient;
 
 // Instantiate the IPFS Client
 $client = new IPFSClient('http://localhost:5001');
