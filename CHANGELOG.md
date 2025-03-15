@@ -1,0 +1,35 @@
+# IPFS-PHP Changelog
+
+This file contains information about every addition, update and deletion in the IPFS-PHP library.  
+It is recommended to read this file before updating the library to a new version.
+
+## v1.0.0
+
+Initial release of the project.  
+
+#### Additions
+
+- Added the `IPFS\Client\IPFSClient` class to interact with IPFS nodes
+  - Supports the following IPFS methods:
+    - `add`
+    - `cat`
+    - `get`
+    - `ls`
+    - `pin/add`
+    - `pin/rm`
+    - `version`
+    - `ping`
+  - Added the corresponding response models and transformers
+- Added unit tests
+
+## v1.1.0
+
+This releases brings support for the `CID` IPFS identifiers.
+
+#### Additions
+
+- Added the `IPFS\Service\CIDEncoder` class that allows for encoding v1 CIDs in the `bafk` format.
+
+#### Updates
+
+- Enhanced the `IPFSClient::ping` unit test to handle the actual response format from IPFS nodes.

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace IPFS\Client;
 
+use IPFS\Exception\IPFSTransportException;
 use IPFS\Model\File;
 use IPFS\Model\Node;
 use IPFS\Model\Ping;
@@ -147,7 +148,17 @@ class IPFSClient
             ],
         ]);
 
-        $parsedResponse = json_decode($response, true);
+        $parts = explode("\n", $response);
+        $filtered = array_filter($parts, function (string $value) {
+            return mb_strlen(trim($value)) > 0;
+        });
+
+        if (empty($filtered) === true) {
+            throw new IPFSTransportException('Unable to decode ping response.');
+        }
+
+        $realResponse = (string) $filtered[\count($filtered) - 1];
+        $parsedResponse = json_decode($realResponse, true);
 
         $pingTransformer = new PingTransformer();
         return $pingTransformer->transform($parsedResponse);
