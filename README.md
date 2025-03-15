@@ -2,7 +2,8 @@
 
 [![PHP CI](https://github.com/EdouardCourty/ipfs-php/actions/workflows/php_ci.yml/badge.svg)](https://github.com/EdouardCourty/ipfs-php/actions/workflows/php_ci.yml)
 
-IPFS-PHP provides a simple way to interact with an IPFS Node using PHP.
+IPFS-PHP provides a simple way to interact with an IPFS Node using PHP.  
+The changelog for this project can be found [here](./CHANGELOG.md).
 
 ## Installation
 

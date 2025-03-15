@@ -268,7 +268,6 @@ class IPFSClientTest extends TestCase
         $jsonEncoded = json_encode($mockReturn);
         // Ping responses contain multiple JSON objects separated by newlines.
         $actualMockReturn = implode("\n", [$jsonEncoded, $jsonEncoded, $jsonEncoded]);
-
         $this->httpClient
             ->expects($this->once())
             ->method('request')
