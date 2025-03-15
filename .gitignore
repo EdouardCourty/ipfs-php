@@ -2,7 +2,6 @@
 vendor
 
 examples/archive.tar
-*.php
 
 composer.lock
 .DS_Store

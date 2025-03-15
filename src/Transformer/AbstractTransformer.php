@@ -6,11 +6,15 @@ namespace IPFS\Transformer;
 
 abstract class AbstractTransformer
 {
-    protected function assertParameters(array $array = [], array $mandatoryParameters = []): void
+    protected function assertParameters(array $array = [], array $mandatoryParameters = [], bool $nonEmpty = false): void
     {
         foreach ($mandatoryParameters as $parameter) {
             if (isset($array[$parameter]) === false) {
                 throw new \InvalidArgumentException(\sprintf('Parameter %s is missing', $parameter));
+            }
+
+            if ($nonEmpty === true && empty($array[$parameter]) === true) {
+                throw new \InvalidArgumentException(\sprintf('Parameter %s should not be empty', $parameter));
             }
         }
     }

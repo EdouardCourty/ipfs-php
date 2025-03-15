@@ -6,6 +6,7 @@ namespace IPFS\Tests\Client;
 
 use IPFS\Client\IPFSClient;
 use IPFS\Client\ScopedHttpClient;
+use IPFS\Model\Peer;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
@@ -345,5 +346,98 @@ class IPFSClientTest extends TestCase
         $result = $this->client->getConfiguration();
 
         $this->assertSame($mockReturn, $result);
+    }
+
+    /**
+     * @covers ::getPeers
+     */
+    public function testGetPeers(): void
+    {
+        $mockReturn = [
+            'Peers' => [
+                [
+                    'Addr' => '/ip4/139.178.65.157/udp/4001/quic-v1',
+                    'Peer' => 'QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ',
+                    'Latency' => '130.549486ms',
+                    'Direction' => 2,
+                    'Streams' => [
+                        [
+                            'Protocol' => '/ipfs/kad/1.0.0',
+                        ],
+                    ],
+                    'Identify' => [
+                        'ID' => 'QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ',
+                        'PublicKey' => 'CAASpgIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCwin2xA7JpMY/vKGHjjupGH7AhJ451wnfhPqG4glnIKFz41NDZa/bQXk05Gw/SeUONsUUbQ5qiBR1WZR4ExzZaipuRqGkPDdgoG2b1gVtFeUharsE5mLNQP6M2mjOGXpLH/tVP8ONe4FkqKLnt9EJ1sIjRr/qxs+uCxheHepCMmzzCnpIwwOqDBhmEQDWDmX4QsosPCdco2TDzLvSJiCXhuMZ6k8MZgt9EfMjpxri7euDgBnw4JFmWFpyfJlDose5z8F84bKd5DBgWdhFObiJUyI9IEv1j7lMobHYJtu9WVLhgkLUYUnt05qLqysPpZHlnmahi8plolCByNeEvPkubAgMBAAE=',
+                        'Addresses' => [
+                            '/dns4/ny5.bootstrap.libp2p.io/tcp/443/wss/p2p/QmaCpDMGvV2BGHeYERUEnRQAwe3N8SzbUtfsmvsqQLuvuJ',
+                        ],
+                        'AgentVersion' => 'rust-libp1p-server/0.12.3',
+                        'Protocols' => [
+                            '/ipfs/id/1.0.0',
+                        ],
+                    ],
+                ],
+                [
+                    'Addr' => '/ip4/139.178.65.157/udp/4001/quic-v1',
+                    'Peer' => 'QmQCU2EcMqAqQPR2i9bChDtGNJchTbq5TbXJJ16u19uLTa',
+                    'Latency' => '130.549486ms',
+                    'Direction' => 2,
+                    'Streams' => [
+                        [
+                            'Protocol' => '/ipfs/dahk/1.0.0',
+                        ],
+                    ],
+                    'Identify' => [
+                        'ID' => 'QmQCU2EcMqAqQPR2i9bChDtGNJchTbq5TbXJJ16u19uLTa',
+                        'PublicKey' => 'CAASpgIwggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQCwin2xA7JpMY/vKGHjjupGH7AhJ451wnfhPqG4glnIKFz41NDZa/bQXk05Gw/SeUONsUUbQ5qiBR1WZR4ExzZaipuRqGkPDdgoG2b1gVtFeUharsE5mLNQP6M2mjOGXpLH/tVP8ONe4FkqKLnt9EJ1sIjRr/qxs+uCxheHepCMmzzCnpIwwOqDBhmEQDWDmX4QsosPCdco2TDzLvSJiCXhuMZ6k8MZgt9EfMjpxri7euDgBnw4JFmWFpyfJlDose5z8F84bKd5DBgWdhFObiJUyI9IEv1j7lMobHYJtu9WVLhgkLUYUnt05qLqysPpZHlnmahi8plolCByNeEvPkubAgMBAAE=',
+                        'Addresses' => [
+                            '/dns4/ny5.bootstrap.libp2p.io/tcp/443/wss/p2p/QmQCU2EcMqAqQPR2i9bChDtGNJchTbq5TbXJJ16u19uLTa',
+                        ],
+                        'AgentVersion' => 'rust-libp2p-server/0.12.3',
+                        'Protocols' => [
+                            '/ipfs/id/2.0.0',
+                        ],
+                    ],
+                ],
+            ],
+        ];
+
+        $this->httpClient
+            ->expects($this->once())
+            ->method('request')
+            ->with('POST', '/api/v0/swarm/peers')
+            ->willReturn(json_encode($mockReturn));
+
+        $result = $this->client->getPeers();
+
+        $this->assertCount(\count($mockReturn['Peers']), $result);
+
+        foreach ($result as $key => $peer) {
+            $correspondingMockData = $mockReturn['Peers'][$key];
+            $this->assertPeerResponse($correspondingMockData, $peer);
+        }
+    }
+
+    private function assertPeerResponse(array $data, Peer $peer): void
+    {
+        $this->assertSame($data['Addr'], $peer->address);
+        $this->assertSame($data['Peer'], $peer->identifier);
+        $this->assertSame($data['Direction'], $peer->direction);
+        $this->assertSame((float) $data['Latency'], $peer->latency);
+
+        foreach ($peer->streams as $key => $stream) {
+            $correspondingResponseStream = $data['Streams'][$key];
+
+            $this->assertSame($stream->protocol, $correspondingResponseStream['Protocol']);
+        }
+
+        $identity = $peer->identity;
+        $this->assertNotNull($identity);
+
+        $this->assertSame($data['Identify']['ID'], $identity->id);
+        $this->assertSame($data['Identify']['AgentVersion'], $identity->agentVersion);
+        $this->assertSame($data['Identify']['PublicKey'], $identity->publicKey);
+        $this->assertSame($data['Identify']['Addresses'], $identity->addresses);
+        $this->assertSame($data['Identify']['Protocols'], $identity->protocols);
     }
 }
