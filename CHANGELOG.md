@@ -33,3 +33,13 @@ This releases brings support for the `CID` IPFS identifiers.
 #### Updates
 
 - Enhanced the `IPFSClient::ping` unit test to handle the actual response format from IPFS nodes.
+
+## v1.2.0
+
+This release brings support for the `swarm/peers` command.
+
+#### Additions
+
+- Added the `IPFSClient::getPeers` method, which returns a list of all the node's connected peers.
+  - Added `Peer`, `PeerIdentity`, `PeerStream` models and corresponding transformers
+  - Added corresponding tests for the new transformers and methods.
