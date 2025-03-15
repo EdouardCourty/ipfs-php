@@ -265,6 +265,9 @@ class IPFSClientTest extends TestCase
             'Time' => '1234567890',
             'Text' => 'Hello, World!',
         ];
+        $jsonEncoded = json_encode($mockReturn);
+        // Ping responses contain multiple JSON objects separated by newlines.
+        $actualMockReturn = implode("\n", [$jsonEncoded, $jsonEncoded, $jsonEncoded]);
 
         $this->httpClient
             ->expects($this->once())
@@ -275,7 +278,7 @@ class IPFSClientTest extends TestCase
                     'count' => 10,
                 ],
             ])
-            ->willReturn(json_encode($mockReturn));
+            ->willReturn($actualMockReturn);
 
         $result = $this->client->ping('QmZ4tDuvese8GKQ3vz8Fq8bKz1q3z1z1z1z1z1z1z1z1z');
 

@@ -12,6 +12,10 @@ use PHPUnit\Framework\TestCase;
  */
 class CIDEncoderTest extends TestCase
 {
+    /**
+     * @covers ::computeCIDv1
+     * @covers ::computeMultihash
+     */
     public function testItEncodes(): void
     {
         $data = 'Hello, world!';
