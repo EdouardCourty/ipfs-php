@@ -6,13 +6,18 @@ namespace IPFS\Client;
 
 use IPFS\Exception\IPFSTransportException;
 use IPFS\Model\File;
+use IPFS\Model\ListFileEntry;
 use IPFS\Model\Node;
+use IPFS\Model\Peer;
 use IPFS\Model\Ping;
 use IPFS\Model\Version;
 use IPFS\Transformer\FileLinkTransformer;
 use IPFS\Transformer\FileListTransformer;
 use IPFS\Transformer\FileTransformer;
 use IPFS\Transformer\NodeTransformer;
+use IPFS\Transformer\PeerIdentityTransformer;
+use IPFS\Transformer\PeerStreamTransformer;
+use IPFS\Transformer\PeerTransformer;
 use IPFS\Transformer\PingTransformer;
 use IPFS\Transformer\VersionTransformer;
 
@@ -81,6 +86,9 @@ class IPFSClient
         ]);
     }
 
+    /**
+     * @return ListFileEntry[]
+     */
     public function list(string $hash): array
     {
         $response = $this->httpClient->request('POST', '/api/v0/ls', [
@@ -110,6 +118,9 @@ class IPFSClient
         return $nodeTransformer->transform($parsedResponse);
     }
 
+    /**
+     * @return string[]
+     */
     public function pin(string $path, bool $recursive = false, ?string $name = null): array
     {
         $response = $this->httpClient->request('POST', '/api/v0/pin/add', [
@@ -125,6 +136,9 @@ class IPFSClient
         return $parsedResponse['Pins'] ?? [];
     }
 
+    /**
+     * @return string[]
+     */
     public function unpin(string $path, bool $recursive = false): array
     {
         $response = $this->httpClient->request('POST', '/api/v0/pin/rm', [
@@ -184,5 +198,25 @@ class IPFSClient
         $response = $this->httpClient->request('POST', '/api/v0/config/show');
 
         return json_decode($response, true);
+    }
+
+    /**
+     * @return Peer[]
+     */
+    public function getPeers(bool $verbose = false): array
+    {
+        $response = $this->httpClient->request('POST', '/api/v0/swarm/peers', [
+            'query' => [
+                'verbose' => $verbose,
+            ],
+        ]);
+
+        $parsedResponse = json_decode($response, true);
+
+        $peerTransformer = new PeerTransformer(
+            peerIdentityTransformer: new PeerIdentityTransformer(),
+            peerStreamTransformer: new PeerStreamTransformer(),
+        );
+        return $peerTransformer->transformList($parsedResponse['Peers'] ?? []);
     }
 }
