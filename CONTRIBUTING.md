@@ -1,6 +1,6 @@
-# Contributing to XRPL-PHP
+# Contributing to IPFS-PHP
 
-Thank you for considering contributing to **xrp-php**! <br />
+Thank you for considering contributing to **ipfs-php**! <br />
 All contributions are appreciated, whether it's bug reports, feature requests, or code improvements. <br />
 The following guidelines will help you get started and ensure a smooth contribution process.
 
@@ -10,7 +10,7 @@ The following guidelines will help you get started and ensure a smooth contribut
     - Click the “Fork” button at the top-right corner of this repository.
     - Clone your fork locally, for example:
       ```bash
-      git clone git@github.com:your-username/xrpl-php
+      git clone git@github.com:your-username/ipfs-php
       ```
 2. **Create a Branch**
     - Create a new branch from `main` (or the default branch) to work on your changes:
@@ -33,7 +33,7 @@ The following guidelines will help you get started and ensure a smooth contribut
 
 ## Code Standards
 
-I aim to maintain clean, consistent, and readable code throughout `xrpl-php`. Before opening a PR, please ensure your changes conform to these standards:
+I aim to maintain clean, consistent, and readable code throughout `ipfs-php`. Before opening a PR, please ensure your changes conform to these standards:
 
 - **Linting**: `php-cs-fixer` with PSR-12 to enforce coding standards.
 - **Static Analysis**: `phpstan` to improve code quality.
@@ -81,6 +81,6 @@ Any Pull Request that does not pass **all** of these checks (linting, static ana
 
 ---
 
-Thank you again for your interest in contributing to **xrpl-php**! <br />
+Thank you again for your interest in contributing to **ipfs-php**! <br />
 Your time and effort in improving the project are greatly appreciated. <br />
-Together, we can build and maintain a robust and reliable library for the XRP Ledger ecosystem.
+Together, we can build and maintain a robust and reliable library for the IPFS ecosystem.
