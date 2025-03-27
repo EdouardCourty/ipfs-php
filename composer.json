@@ -5,7 +5,8 @@
     "require": {
         "php": ">= 8.3",
         "symfony/http-client": "^7.2",
-        "selective/base32": "^2.0"
+        "selective/base32": "^2.0",
+        "symfony/mime": "^7.2"
     },
     "require-dev": {
         "phpunit/phpunit": "^12.0",
