@@ -219,4 +219,22 @@ class IPFSClient
         );
         return $peerTransformer->transformList($parsedResponse['Peers'] ?? []);
     }
+
+    public function resolve(string $name, bool $recursive = true): string
+    {
+        $response = $this->httpClient->request('POST', '/api/v0/resolve', [
+            'query' => [
+                'arg' => $name,
+                'recursive' => $recursive,
+            ],
+        ]);
+
+        $parsedResponse = json_decode($response, true);
+
+        if (isset($parsedResponse['Path']) === false) {
+            throw new \UnexpectedValueException('Unable to resolve path.');
+        }
+
+        return (string) $parsedResponse['Path'];
+    }
 }
