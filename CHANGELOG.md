@@ -43,3 +43,12 @@ This release brings support for the `swarm/peers` command.
 - Added the `IPFSClient::getPeers` method, which returns a list of all the node's connected peers.
   - Added `Peer`, `PeerIdentity`, `PeerStream` models and corresponding transformers
   - Added corresponding tests for the new transformers and methods.
+
+## v1.3.0
+
+This release brings support for the `resolve` command.
+
+#### Additions
+
+- Added the `IPFSClient::resolve` method, which returns the path to a given IPFS name.
+  - Added corresponding tests for the new method.

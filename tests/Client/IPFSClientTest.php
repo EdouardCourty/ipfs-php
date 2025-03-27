@@ -440,4 +440,29 @@ class IPFSClientTest extends TestCase
         $this->assertSame($data['Identify']['Addresses'], $identity->addresses);
         $this->assertSame($data['Identify']['Protocols'], $identity->protocols);
     }
+
+    /**
+     * @covers ::resolve
+     */
+    public function testResolve(): void
+    {
+        $mockReturn = [
+            'Path' => '/ipfs/QmSnuWmxptJZdLJpKRarxBMS2Ju2oANVrgbr2xWbie9b2D',
+        ];
+
+        $this->httpClient
+            ->expects($this->once())
+            ->method('request')
+            ->with('POST', '/api/v0/resolve', [
+                'query' => [
+                    'arg' => 'QmSnuWmxptJZdLJpKRarxBMS2Ju2oANVrgbr2xWbie9b2D',
+                    'recursive' => true,
+                ],
+            ])
+            ->willReturn(json_encode($mockReturn));
+
+        $result = $this->client->resolve('QmSnuWmxptJZdLJpKRarxBMS2Ju2oANVrgbr2xWbie9b2D');
+
+        $this->assertSame($mockReturn['Path'], $result);
+    }
 }
