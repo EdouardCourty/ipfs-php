@@ -31,7 +31,7 @@ class IPFSClientTest extends TestCase
     /**
      * @covers ::add
      */
-    public function testAddFile(): void
+    public function testAdd(): void
     {
         $content = 'Hello, World!';
 
@@ -60,6 +60,85 @@ class IPFSClientTest extends TestCase
         $this->assertSame($mockReturn['Name'], $result->name);
         $this->assertSame($mockReturn['Hash'], $result->hash);
         $this->assertSame((int) $mockReturn['Size'], $result->size);
+    }
+
+    /**
+     * @covers ::addFile
+     */
+    public function testAddFile(): void
+    {
+        $mockReturn = [
+            'Name' => 'hello.txt',
+            'Hash' => 'QmZ4tDuvese8GKQ3vz8Fq8bKz1q3z1z1z1z1z1z1z1z1z1z',
+            'Size' => '13',
+        ];
+
+        $this->httpClient
+            ->expects($this->once())
+            ->method('request')
+            ->with('POST', '/api/v0/add', $this->anything())
+            ->willReturn(json_encode($mockReturn));
+
+        $result = $this->client->addFile('./tests/Client/IPFSClientTest.php');
+
+        $this->assertSame($mockReturn['Name'], $result->name);
+        $this->assertSame($mockReturn['Hash'], $result->hash);
+        $this->assertSame((int) $mockReturn['Size'], $result->size);
+    }
+
+    /**
+     * @covers ::addFile
+     */
+    public function testCannotAddFileThatDoesNotExist(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->client->addFile('/path/to/non/existent/file');
+    }
+
+    /**
+     * @covers ::addDirectory
+     */
+    public function testAddDirectory(): void
+    {
+        $directoryReturn = [
+            'Name' => 'Directory name',
+            'Hash' => 'QmZ4tDuvese8GKQ3vz8Fq8bKz1q3z1z1z1z1z1z1z1z1z',
+            'Size' => '999999999999', // Should be bigger than the files sizes
+        ];
+        $mockReturn = [
+            'Name' => 'File name',
+            'Hash' => 'QmZ4tDuvese8GKQ3vz8Fq8bKz1q3z1z1z1z1z1z1z1z1z',
+            'Size' => '1726312',
+        ];
+        $jsonEncoded = json_encode($mockReturn);
+        $jsonEncodedDIrectoryPayload = json_encode($directoryReturn);
+        // wrap-with-directory responses contain multiple JSON objects separated by newlines.
+        $actualMockReturn = implode("\n", [$jsonEncoded, $jsonEncoded, $jsonEncoded, $jsonEncodedDIrectoryPayload]);
+
+        $this->httpClient
+            ->expects($this->once())
+            ->method('request')
+            ->with('POST', '/api/v0/add', $this->anything())
+            ->willReturn($actualMockReturn);
+
+        $result = $this->client->addDirectory('./tests');
+
+        $this->assertSame($directoryReturn['Name'], $result->name);
+        $this->assertSame($directoryReturn['Hash'], $result->hash);
+        $this->assertSame($directoryReturn['Size'], $result->size);
+
+        $this->assertCount(3, $result->files);
+    }
+
+    /**
+     * @covers ::addDirectory
+     */
+    public function testCannotaddDirectoryThatDoesNotExist(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $this->client->addDirectory('/path/to/non/existent/folder');
     }
 
     /**

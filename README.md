@@ -28,8 +28,7 @@ $client = new IPFSClient(url: 'http://localhost:5001');
 // $client = new IPFSClient(host: 'localhost', port: 5001);
 
 // Add a file
-$fileContent = file_get_contents('file.txt');
-$file = $client->add($fileContent);
+$file = $client->addFile('file.txt');
 
 echo 'File uploaded: ' . $file->hash;
 // File uploaded: QmWGeRAEgtsHW3ec7U4qW2CyVy7eA2mFRVbk1nb24jFyks
