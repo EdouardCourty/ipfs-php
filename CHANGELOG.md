@@ -52,3 +52,22 @@ This release brings support for the `resolve` command.
 
 - Added the `IPFSClient::resolve` method, which returns the path to a given IPFS name.
   - Added corresponding tests for the new method.
+
+## v1.4.0
+
+This release enhances the `add` feature, by allowing to precisely upload files and directories instead of raw data.
+
+#### Additions
+
+- Added the `IPFSClient::addFile` method, which allows for adding files to IPFS.
+  - Added corresponding tests for the new method.
+- Added the `IPFSClient::addDirectory` method, which allows for adding directories to IPFS.
+  - Added corresponding tests for the new method.
+- Added the `Directory` model and corresponding transformer.
+  - Added corresponding tests for the new transformer.
+- Other minor additions such as `Helper\FilesytemHelper`
+- Added [code examples](examples).
+
+#### Updates
+
+- Updated `README.md` to use the new `IPFSClient::addFile` method instead of `IPFSClient::add` in the provided code example.
